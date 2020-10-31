@@ -27,9 +27,10 @@ import {
   LogoutOutlined,
   MailOutlined,
 } from '@ant-design/icons-vue';
-import Icon from '../components/Icon';
+import { Icon } from '../components/index';
 
 export default function lazyLoadAntComponent(app) {
+  // 注册antd组件
   [
     Button,
     Table,
@@ -50,7 +51,7 @@ export default function lazyLoadAntComponent(app) {
     Dropdown,
   ].forEach(com => app.use(com));
 
-  // 加载图标
+  // 加载自定义组件和图标
   [
     Icon,
     UserOutlined,

@@ -58,6 +58,7 @@
         </a-dropdown>
       </a-layout-header>
       <a-layout-content class="layout-content">
+        <HeadBread />
         <router-view></router-view>
       </a-layout-content>
     </a-layout>
@@ -68,8 +69,10 @@
 import { reactive, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { routes } from '@/router/index';
+import HeadBread from './HeadBread';
+
 export default {
-  components: {},
+  components: { HeadBread },
 
   setup() {
     // 使用useRouter获取router 进行跳转
@@ -110,8 +113,9 @@ export default {
 #app-layout {
   height: 100vh;
   .layout-content {
-    margin: 24px 16px;
+    margin: 20px 15px;
     padding: 24px;
+    padding-top: 15px;
     background: #fff;
     min-height: 280px;
   }
