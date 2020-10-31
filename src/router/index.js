@@ -1,25 +1,54 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHashHistory } from 'vue-router';
 
-const routes = [
+export const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: '主菜单',
+    icon: 'UserOutlined',
+    component: () => import('@/components/Layout'),
+    children: [
+      {
+        path: '/',
+        name: '主页',
+        component: () => import('@/views/home/index'),
+      },
+      {
+        path: '/list',
+        name: '用户列表',
+        component: () => import('@/views/home/list'),
+      },
+    ],
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: '/order',
+    name: '订单模块',
+    icon: 'UserOutlined',
+    component: () => import('@/components/Layout'),
+    children: [
+      {
+        path: '/order/mine',
+        name: '我的订单',
+        component: () => import('@/views/order/myOrder'),
+      },
+      {
+        path: '/order/list',
+        name: '订单列表',
+        component: () => import('@/views/order/orderList'),
+      },
+    ],
+  },
+  {
+    path: '/login',
+    name: 'login',
+    icon: 'UserOutlined',
+    hiden: true, // 不在菜单中显示
+    component: () => import('../views/login'),
+  },
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

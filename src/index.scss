@@ -1,0 +1,106 @@
+@import '~normalize.css';
+
+//  reset
+body,
+div,
+p,
+span,
+ul,
+li,
+dl,
+dt,
+dd,
+section,
+hr,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+img,
+button,
+input,
+select,
+textarea {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+input {
+  outline: none;
+}
+
+//  flex class
+
+.flex-hc {
+  display: flex;
+  align-items: center;
+}
+
+.flex-hcb {
+  @extend .flex-hc;
+  justify-content: space-between;
+}
+
+.flex-vc {
+  @extend .flex-hc;
+  flex-direction: column;
+}
+
+.flex-center {
+  @extend .flex-hc;
+  justify-content: center;
+}
+
+// margin padding mt-5~mt-50
+@for $i from 1 through 10 {
+  .mt-#{$i*5} {
+    margin-top: 5px * $i;
+  }
+  .mb-#{$i*5} {
+    margin-bottom: 5px * $i;
+  }
+  .ml-#{$i*5} {
+    margin-left: 5px * $i;
+  }
+  .mr-#{$i*5} {
+    margin-right: 5px * $i;
+  }
+
+  .pt-#{$i*5} {
+    padding-top: 5px * $i;
+  }
+  .pb-#{$i*5} {
+    padding-bottom: 5px * $i;
+  }
+  .pl-#{$i*5} {
+    padding-left: 5px * $i;
+  }
+  .pr-#{$i*5} {
+    padding-right: 5px * $i;
+  }
+}
+
+// 字体大小  ft-1 ~ ft-50
+@for $i from 10 through 50 {
+  .ft-#{$i} {
+    font-size: $i * 1px;
+  }
+}
+
+.align-l {
+  text-align: left;
+}
+
+.align-r {
+  text-align: right;
+}
+
+.align-c {
+  text-align: center;
+}
