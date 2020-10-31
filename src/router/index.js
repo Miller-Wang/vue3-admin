@@ -14,7 +14,7 @@ export const routes = [
       },
       {
         path: '/list',
-        name: '用户列表',
+        name: '表单',
         component: () => import('@/views/home/list'),
       },
     ],
@@ -32,7 +32,7 @@ export const routes = [
       },
       {
         path: '/order/list',
-        name: '订单列表',
+        name: '表格',
         component: () => import('@/views/order/orderList'),
       },
     ],

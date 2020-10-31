@@ -101,7 +101,7 @@ export default {
 
     return {
       ...toRefs(data),
-      routes,
+      routes: routes.filter(v => !v.hiden),
       onLogOut,
       onMenuSelect,
     };

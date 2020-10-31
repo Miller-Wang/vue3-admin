@@ -49,6 +49,10 @@ export default {
       },
     };
   },
+
+  mounted() {
+    console.log(this.$store);
+  },
   methods: {
     passwordChange(val) {
       console.log(val);
