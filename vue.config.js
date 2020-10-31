@@ -3,6 +3,12 @@ module.exports = {
   publicPath: './',
   outputDir: 'dist',
   devServer: {
-    proxy: 'http://ccgq.netshi.cn',
+    port: '9000',
+    proxy: {
+      '/': {
+        target: 'http://localhost:8080',
+        changOrigin: true,
+      },
+    },
   },
 };

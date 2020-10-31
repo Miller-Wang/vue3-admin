@@ -70,6 +70,7 @@ import { reactive, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { routes } from '@/router/index';
 import HeadBread from './HeadBread';
+import { Storage } from '../utils';
 
 export default {
   components: { HeadBread },
@@ -91,6 +92,7 @@ export default {
 
     // 退出登录
     function onLogOut() {
+      Storage.setLocalItem('TOKEN');
       router.replace('/login');
     }
 

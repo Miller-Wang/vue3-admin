@@ -1,13 +1,14 @@
 import axios from 'axios';
-import qs from 'qs';
 import { getVaildParams } from '@/utils/index';
 import { message } from 'ant-design-vue';
+import { Storage } from '../utils/index';
 
 const jsonType = {
   'Content-Type': 'application/json;charset=UTF-8',
 };
-const formDataType = {
-  'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+
+export const requestParams = {
+  token: Storage.getLocalItem('TOKEN'),
 };
 
 /**
@@ -15,31 +16,27 @@ const formDataType = {
  * 正式
  */
 const devDomain = 'https://gangqinpu.yusi.tv';
-const prodDomain = 'https://gangqinpu.yusi.tv';
+const prodDomain = 'http://localhost:8080';
 
-axios.defaults.baseURL = devDomain;
+axios.defaults.baseURL = prodDomain;
 
 axios.interceptors.request.use(request => {
-  // 此处设置header
-  if (request.data && request.headers['Content-Type'] === formDataType['Content-Type'])
-    request.data = qs.stringify(request.data);
+  // 此处设置token
+  if (requestParams.token) {
+    request.headers['token'] = requestParams.token;
+  } else if (request.url !== '/login') {
+    window.location.hash = '/login';
+  }
   return request;
 });
 
 axios.interceptors.response.use(response => {
-  let { data, status } = response;
-  if (status === 200) {
-    if (typeof data === 'string') {
-      message.error('返回数据格式有误');
-      return;
-    }
-    // 未登录
-    if (data.returnCode === '-1014') {
-      location.hash = '/login';
-    }
+  let { data } = response;
+
+  if (data && data.code === 0) {
     return data;
   } else {
-    message.error('网络错误');
+    message.error(data.data || data.message);
   }
 });
 

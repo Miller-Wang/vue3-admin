@@ -1,4 +1,7 @@
 import * as Types from '../action-types';
+import * as Service from '../../service/user';
+import { Storage } from '../../utils/index';
+import { requestParams } from '@/service/axios';
 
 const state = {
   userInfo: {},
@@ -13,10 +16,13 @@ export default {
     },
   },
   actions: {
-    async [Types.LOGIN]({ commit }) {
-      console.log(commit);
-      // let sliders = await getSliders<ISlider[]>();
-      // commit(Types.SET_SLIDER_LIST, sliders);
+    async [Types.LOGIN]({ commit }, payload) {
+      let { data } = await Service.login(payload);
+      commit(Types.LOGIN, data);
+      if (data.token) {
+        Storage.setLocalItem('TOKEN', data.token);
+        requestParams.token = data.token;
+      }
     },
   },
 };
