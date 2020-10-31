@@ -8,7 +8,14 @@ const jsonType = {
 };
 
 export const requestParams = {
-  token: Storage.getLocalItem('TOKEN'),
+  _token: Storage.getLocalItem('TOKEN'),
+  setToken: function(token) {
+    Storage.setLocalItem('TOKEN', token);
+    this._token = token;
+  },
+  getToken: function() {
+    return this._token;
+  },
 };
 
 /**
@@ -21,12 +28,11 @@ const prodDomain = 'http://localhost:8080';
 axios.defaults.baseURL = prodDomain;
 
 axios.interceptors.request.use(request => {
-  // 此处设置token
-  if (requestParams.token) {
-    request.headers['token'] = requestParams.token;
-  } else if (request.url !== '/login') {
-    window.location.hash = '/login';
-  }
+  if (request.url === '/login') return request;
+  // 未登录 => 到登录页面
+  if (!requestParams.getToken()) return (window.location.hash = '/login');
+  // 设置token
+  request.headers['token'] = requestParams.getToken();
   return request;
 });
 
