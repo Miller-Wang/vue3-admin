@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
-import { getVaildParams } from './index';
+import { getVaildParams } from '@/utils/index';
+import { message } from 'ant-design-vue';
 
 const jsonType = {
   'Content-Type': 'application/json;charset=UTF-8',
@@ -10,17 +11,16 @@ const formDataType = {
 };
 
 /**
- * 测服域名 http://ccgq.netshi.cn/
- * 正服域名 https://gangqinpu.yusi.tv/
+ * 测试
+ * 正式
  */
+const devDomain = 'https://gangqinpu.yusi.tv';
+const prodDomain = 'https://gangqinpu.yusi.tv';
 
-// axios.defaults.baseURL = 'http://ccgq.netshi.cn';
-axios.defaults.baseURL = 'https://gangqinpu.yusi.tv';
+axios.defaults.baseURL = devDomain;
 
 axios.interceptors.request.use(request => {
-  if (commonParams.uid) {
-    request.url += `&uid=${commonParams.uid}`;
-  }
+  // 此处设置header
   if (request.data && request.headers['Content-Type'] === formDataType['Content-Type'])
     request.data = qs.stringify(request.data);
   return request;
@@ -30,10 +30,7 @@ axios.interceptors.response.use(response => {
   let { data, status } = response;
   if (status === 200) {
     if (typeof data === 'string') {
-      window.vm.$message.error({
-        message: '返回数据格式有误',
-        showClose: true,
-      });
+      message.error('返回数据格式有误');
       return;
     }
     // 未登录
@@ -42,12 +39,15 @@ axios.interceptors.response.use(response => {
     }
     return data;
   } else {
-    window.vm.$message.error({ message: '网络错误', showClose: true });
+    message.error('网络错误');
   }
 });
 
-axios.postJson = (url, params = {}) => axios.post(url, getVaildParams(params), { jsonType });
+const oldPost = axios.post;
+const oldGet = axios.get;
 
-axios.getData = (url, resData = {}) => axios.get(url, { params: getVaildParams(resData) });
+// 重写post和get方法
+axios.post = (url, params = {}) => oldPost(url, getVaildParams(params), { jsonType });
+axios.get = (url, resData = {}) => oldGet(url, { params: getVaildParams(resData) });
 
 export default axios;

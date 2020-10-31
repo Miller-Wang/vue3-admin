@@ -11,6 +11,7 @@
 <script>
 import { message, notification } from 'ant-design-vue';
 import { reactive, toRefs } from 'vue';
+import { getList } from '@/service/user';
 export default {
   setup() {
     const data = reactive({
@@ -25,6 +26,10 @@ export default {
       showModal,
       ...toRefs(data),
     };
+  },
+
+  async mounted() {
+    await getList({ pageindex: 1, pagesize: 10 });
   },
 
   methods: {
