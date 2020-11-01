@@ -30,9 +30,12 @@ axios.defaults.baseURL = prodDomain;
 axios.interceptors.request.use(request => {
   if (request.url === '/login') return request;
   // 未登录 => 到登录页面
-  if (!requestParams.getToken()) return (window.location.hash = '/login');
-  // 设置token
-  request.headers['token'] = requestParams.getToken();
+  if (requestParams.getToken()) {
+    // 设置token
+    request.headers['token'] = requestParams.getToken();
+  } else {
+    window.location.hash = '/login';
+  }
   return request;
 });
 

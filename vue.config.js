@@ -3,7 +3,7 @@ module.exports = {
   publicPath: './',
   outputDir: 'dist',
   devServer: {
-    port: '9000',
+    port: '7000',
     proxy: {
       '/': {
         target: 'http://localhost:8080',
