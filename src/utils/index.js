@@ -26,9 +26,14 @@ export const Storage = {
     sessionStorage.setItem(key, JSON.stringify(val));
   },
   getSessionItem: key => {
-    const value = sessionStorage.getItem(key);
+    let value = sessionStorage.getItem(key);
     if (value) {
-      return JSON.parse(value);
+      try {
+        value = JSON.parse(value);
+      } catch (error) {
+        console.log(error);
+      }
+      return value;
     }
     return null;
   },
@@ -38,9 +43,14 @@ export const Storage = {
   },
 
   getLocalItem: key => {
-    const value = localStorage.getItem(key);
+    let value = localStorage.getItem(key);
     if (value) {
-      return JSON.parse(value);
+      try {
+        value = JSON.parse(value);
+      } catch (error) {
+        console.log(error);
+      }
+      return value;
     }
     return null;
   },

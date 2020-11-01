@@ -1,12 +1,12 @@
 <template>
   <a-table :columns="columns" :data-source="data">
-    <template v-slot:name="{ text }">
+    <template #name="{ text }">
       <a>{{ text }}</a>
     </template>
-    <template v-slot:customTitle>
+    <template #customTitle>
       <span><smile-outlined /> Name</span>
     </template>
-    <template v-slot:tags="{ text: tags }">
+    <template #tags="{ text: tags }">
       <span>
         <a-tag
           v-for="tag in tags"
@@ -17,9 +17,9 @@
         </a-tag>
       </span>
     </template>
-    <template v-slot:action="{ text, record }">
+    <template #action="data">
       <span>
-        <a>Invite 一 {{ record.name }}</a>
+        <a>Invite 一 {{ data.record.name }}</a>
         <a-divider type="vertical" />
         <a>Delete</a>
         <a-divider type="vertical" />

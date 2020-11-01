@@ -42,7 +42,7 @@ export default {
     async function loginAction() {
       try {
         await ruleFormRef.value.validate();
-        await store.dispatch(`user/${Types.LOGIN}`, data.form);
+        // await store.dispatch(`user/${Types.LOGIN}`, data.form);
         router.push('/');
       } catch (error) {
         console.log(error);

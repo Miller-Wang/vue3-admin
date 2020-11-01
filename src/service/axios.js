@@ -22,7 +22,7 @@ export const requestParams = {
  * 测试
  * 正式
  */
-const devDomain = 'https://gangqinpu.yusi.tv';
+const devDomain = 'https://www.test.com';
 const prodDomain = 'http://localhost:8080';
 
 axios.defaults.baseURL = prodDomain;
@@ -30,12 +30,12 @@ axios.defaults.baseURL = prodDomain;
 axios.interceptors.request.use(request => {
   if (request.url === '/login') return request;
   // 未登录 => 到登录页面
-  if (requestParams.getToken()) {
-    // 设置token
-    request.headers['token'] = requestParams.getToken();
-  } else {
-    window.location.hash = '/login';
-  }
+  // if (requestParams.getToken()) {
+  //   // 设置token
+  //   request.headers['token'] = requestParams.getToken();
+  // } else {
+  //   window.location.hash = '/login';
+  // }
   return request;
 });
 
